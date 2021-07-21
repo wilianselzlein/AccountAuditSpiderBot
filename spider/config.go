@@ -1,10 +1,8 @@
-package main
+package spider
 
 import (
 	"io/ioutil"
 	"log"
-	"strings"
-	"strconv"
 	"gopkg.in/yaml.v2"
 )
 
@@ -33,22 +31,22 @@ type Path struct {
 	Chrome   string `yaml:"chromeDriver"`
 }
 
-var y *Yaml
+var Y *Yaml
 
-func load() *Yaml {
+func LoadConfig() *Yaml {
 	//y := Yaml{}
-	if y == nil {
+	if Y == nil {
 
 		yamlFile, err := ioutil.ReadFile("config.yaml") 
 		if err != nil {
 			log.Printf("yamlFile.Get err  #%v ", err)
 		}
-		err = yaml.Unmarshal(yamlFile, &y) 
+		err = yaml.Unmarshal(yamlFile, &Y) 
 
 		if err != nil {
 			log.Fatalf("error: %v", err)
 		}
 	}
 
-	return y
+	return Y
 }

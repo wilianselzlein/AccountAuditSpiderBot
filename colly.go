@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 	"github.com/gocolly/colly"
@@ -8,10 +9,10 @@ import (
 )
 
 func init() {
-	ftm.Printf("Yaml: %+v\n", config.load())
+	fmt.Printf("Yaml: %+v\n", spider.LoadConfig())
 }
 
-func main() {
+func test() {
 	// create a new collector
 	c := colly.NewCollector(
 		// MaxDepth is 1, so only the links on the scraped page
@@ -20,8 +21,11 @@ func main() {
 	)
 
 	// authenticate
-	err := c.Post(y.Url[0].Login, 
-		map[string]string{"username": y.User[0].Login, "password": y.User[0].Password, "submit": "Entrar"})
+	err := c.Post(spider.Y.Url[0].Login, 
+		map[string]string{
+			"username": spider.Y.User[0].Login,
+			"password": spider.Y.User[0].Password,
+			"submit": "Entrar"})
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -51,6 +55,6 @@ func main() {
 	// HTTP Post Binding (Request)<P>JavaScript is disabled. We strongly recommend to enable it. Click the button below to continue.
 	// </P><INPUT TYPE="SUBMIT" VALUE="CONTINUE" />
 
-	c.Visit(y.Url[0].List_Accounts)
+	c.Visit(spider.Y.Url[0].List_Accounts)
 
 }

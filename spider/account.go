@@ -11,19 +11,20 @@ import (
 const PRINTSCREENFILENAME = "PrintScreenSpider"
 const PRINTSCREENFILENAMEERROR = PRINTSCREENFILENAME + "Error"
 
+const (
+	// These paths will be different on your system.
+	seleniumPath     = Y.Path[0].Selenium
+	geckoDriverPath  = Y.Path[0].Gecko
+	chromeDriverPath = Y.Path[0].Chrome
+	port             = 8080
+)
+
 func init() {
-	ftm.Printf("Yaml: %+v\n", config.load())
+	fmt.Printf("Yaml: %+v\n", LoadConfig())
 }
 
 func StartService() {
 	// Start a Selenium WebDriver server instance (if one is not already running).
-	const (
-		// These paths will be different on your system.
-		seleniumPath     = y.Path[0].Selenium
-		geckoDriverPath  = y.Path[0].Gecko
-		chromeDriverPath = y.Path[0].Chrome
-		port             = 8080
-	)
 	opts := []selenium.ServiceOption{
 		selenium.StartFrameBuffer(),           // Start an X frame buffer for the browser to run in.
 		selenium.GeckoDriver(geckoDriverPath), // Specify the path to GeckoDriver in order to use Firefox.
@@ -38,7 +39,9 @@ func StartService() {
 }
 
 func MakeLogin(wd selenium.WebDriver) {
-	err = wd.Get(y.Url[0].Login)
+	var err error 
+
+	err = wd.Get(Y.Url[0].Login)
 	checkErr(err, wd)
 
 	GetScreenshot(wd, PRINTSCREENFILENAME)
@@ -51,7 +54,7 @@ func MakeLogin(wd selenium.WebDriver) {
 	err = elem.Clear()
 	checkErr(err, wd)
 	
-	err = elem.SendKeys(y.User[0].Login)
+	err = elem.SendKeys(Y.User[0].Login)
 	checkErr(err, wd)
 	
 	elem, err = wd.FindElement(selenium.ByID, "senha")
@@ -60,7 +63,7 @@ func MakeLogin(wd selenium.WebDriver) {
 	err = elem.Clear()
 	checkErr(err, wd)
 
-	err = elem.SendKeys(y.User[0].Password)
+	err = elem.SendKeys(Y.User[0].Password)
 	checkErr(err, wd)
 
 	btn, err := wd.FindElement(selenium.ByID, "submit")
@@ -71,7 +74,9 @@ func MakeLogin(wd selenium.WebDriver) {
 }
 
 func ListAccounts(wd selenium.WebDriver) {
-	err = wd.Get(y.Url[0].List_Accounts)
+	var err error 
+
+	err = wd.Get(Y.Url[0].List_Accounts)
 	checkErr(err, wd)
 
 	GetCookies(wd)
@@ -85,7 +90,7 @@ func ListAccounts(wd selenium.WebDriver) {
 	webelem, err = wd.FindElement(selenium.ByID, "select-competencia")
 	checkErr(err, wd)
 
-	elm, err = utils.Select(webelem)
+	elm, err := Select(webelem)
 	checkErr(err, wd)
 
 	err = elm.SelectByValue("901")
@@ -96,7 +101,7 @@ func ListAccounts(wd selenium.WebDriver) {
 
 	GetScreenshot(wd, PRINTSCREENFILENAME)
 
-	btn, err = wd.FindElement(selenium.ByID, "btn-pesquisar")
+	btn, err := wd.FindElement(selenium.ByID, "btn-pesquisar")
 	checkErr(err, wd)
 
 	err = btn.Click()

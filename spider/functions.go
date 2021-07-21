@@ -1,10 +1,13 @@
-package utils
+package spider
 
 import (
 	"fmt"
-	"strings"
+	"os"
+	"time"
 	"github.com/tebeka/selenium"
 )
+
+var err error
 
 func checkErr(err error, wd selenium.WebDriver) {
 	if err != nil {

@@ -12,4 +12,5 @@ require (
 	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
 	github.com/tebeka/selenium v0.9.9 // indirect
 	github.com/temoto/robotstxt v1.1.2 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )

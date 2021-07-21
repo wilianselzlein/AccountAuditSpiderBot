@@ -16,7 +16,7 @@ import (
 
 func main() {
 
-	ExecuteSpider()
+	spider.ExecuteSpider()
 	
 	fmt.Printf("Finish\n")
 
