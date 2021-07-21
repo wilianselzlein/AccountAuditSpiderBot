@@ -1,0 +1,22 @@
+schema: "1.0.0"
+id: spider
+version: "1.0.0"
+
+
+User:
+  - name: dev
+    login: "carol.?"
+    password: "abc123"
+
+Url: 
+  - name: dev
+    login: "http://scportalhml2.?.com.br/login"
+    list_accounts: "http://sccontashml2.?.com.br/auditoria/guias"
+
+Paths:
+  - name: dev
+    selenium: "vendor/selenium-server-standalone-3.4.jar" 
+    #geckoDriver: "/usr/bin/geckodriver"
+		geckoDriver: "vendor/geckodriver-v0.18.0-linux64/geckodriver"
+    #chromeDriver: "/home/ivo/go/src/AccountAuditSpiderBot/chromedriver"
+		chromeDriver: "/usr/bin/chromedriver"
